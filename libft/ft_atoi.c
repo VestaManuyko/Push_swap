@@ -29,12 +29,14 @@ int	ft_atoi(const char *nptr)
 				sign *= -1;
 			i++;
 		}
+		if (nptr[i] == '-' || nptr[i] == '+')
+			break ;
 		number = 0;
 		while (ft_isdigit(nptr[i]))
 			number = number * 10 + (nptr[i++] - '0');
 		return (sign * number);
 	}
-	return (0);
+	return (-1);
 }
 /*
 #include <stdio.h>
