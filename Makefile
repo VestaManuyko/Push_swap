@@ -15,7 +15,7 @@ BNS_NAME = push_swap_bonus
 LIBFT = libft.a
 CC = cc -Wall -Wextra -Werror -g
 #everything needed for libft.a
-LIBFTSRC = libft/ft_atoi.c libft/ft_bzero.c libft/ft_calloc.c \
+LIBFTSRC = libft/ft_bzero.c libft/ft_calloc.c \
 libft/ft_isalnum.c libft/ft_isalpha.c libft/ft_isascii.c libft/ft_isdigit.c \
 libft/ft_isprint.c libft/ft_itoa.c libft/ft_memcmp.c libft/ft_memcpy.c \
 libft/ft_memmove.c libft/ft_memset.c libft/ft_putendl_fd.c \
@@ -32,7 +32,7 @@ libft/ft_lstlast_bonus.c libft/ft_lstadd_back_bonus.c \
 libft/ft_lstdelone_bonus.c libft/ft_lstclear_bonus.c \
 libft/ft_putchar_fd.c libft/ft_lstiter_bonus.c libft/ft_lstmap_bonus.c
 #project program sources
-PSRC = main.c
+PSRC = main.c free.c ft_atoi.c
 #object files
 OBJ = $(LIBFTSRC:.c=.o)
 POBJ = $(PSRC:.c=.o)

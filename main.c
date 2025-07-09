@@ -12,61 +12,95 @@
 
 #include "push_swap.h"
 
-void	error_message(const char *s)
+void	error_message(const char *s, t_world *world)
 {
 	write (2, "Error\n", 6);
 	write (2, s, ft_strlen(s));
-	exit(EXIT_FAILURE);
-	//FIX consider exiting with error, smth like clean_up(EXIT_FAIL)
+	clean_up(world, EXIT_FAILURE);
 }
 
-int	check_list(t_list **lst)
+void	valid_nbr(char *split, t_world *world)
 {
-	(void)lst;
-	return (0);
+	size_t	i;
+
+	i = 0;
+	while (split[i])
+	{
+		if (!ft_isdigit(split[i]))
+			error_message("Number contains not only digits", world);
+		i++;
+	}
+}
+
+void	lst_create(t_world *world, char *argv)
+{
+	int	*nbr;
+	size_t	i;
+	t_list	*node;
+
+	i = 0;
+	if (world->split)
+		free_split(world);
+	world->split = ft_split(argv, ' ');
+	if (!world->split)
+		error_message("Malloc failed on split", world);
+	while (world->split[i])
+	{
+		valid_nbr(world->split[i], world);
+		nbr = malloc(sizeof(int));
+		if (!nbr)
+			error_message("Malloc of nbr failed\n", world);
+		*nbr = ft_atoi(world->split[i], world);
+		node = ft_lstnew(nbr);
+		if (!node)
+			error_message("Malloc failed on node creation", world);
+		ft_lstadd_back(world->lst, node);
+		i++;
+	}
+}
+
+void	print_list(t_world *world)
+{
+	t_list	*node;
+
+	if (!world->lst || !*world->lst)
+		return ;
+	node = *world->lst;
+	while (node)
+	{
+		ft_printf("%d\n", *(int *)node->content);
+		node = node->next;
+	}
 }
 
 int	main(int argc, char **argv)
 {
 	size_t	i;
 	size_t	j;
-	size_t	r;
-	t_list	**lst;
-	char	**split;
-	int		nbr;
+	t_world	world;
+	t_list	*head;
 
 	i = 1;
 	j = 0;
-	r = 0;
-	split = NULL;
-	lst = NULL;
+	head = NULL;
+	world.split = NULL;
+	world.lst = &head;
 	if (argc < 1)
-		error_message("Wrong input, needed more arguments");
+		error_message("Wrong input, needed more arguments", &world);
 	else if (argc > 1)
 	{
 		while (argv[i])
 		{
-			while (argv[i][j])
+			if (argv[i][j])
 			{
 				if (argv[i][j] == ' ')
-				{
-					split = ft_split(argv[i], ' ');
-					while (split[r])
-					{
-						nbr = ft_atoi(split[r]);
-						//FIX test for int_min int_max
-						if (nbr == -1)
-							error_message("Wrong input, incorrect number");
-						r++;
-					}
-					ft_lstadd_back(lst, ft_lstnew(&nbr));
-				}
+					lst_create(&world, argv[i]);
 				j++;
 			}
+			lst_create(&world, argv[i]);
 			i++;
 		}
-		check_list(lst);
 	}
-	//FIX later you need to free all trimmed strings used here
-	return (0);
+	print_list(&world);
+	clean_up(&world, EXIT_SUCCESS);
 }

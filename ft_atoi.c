@@ -9,9 +9,10 @@
 /*   Updated: 2025/05/03 16:30:18 by vmanuyko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-int	ft_atoi(const char *nptr)
+#include "push_swap.h"
+
+int	ft_atoi(const char *nptr, t_world *world)
 {
 	int		sign;
 	int		number;
@@ -36,7 +37,8 @@ int	ft_atoi(const char *nptr)
 			number = number * 10 + (nptr[i++] - '0');
 		return (sign * number);
 	}
-	return (-1);
+	error_message("Incorrect number\n", world);
+	return (0);
 }
 /*
 #include <stdio.h>
