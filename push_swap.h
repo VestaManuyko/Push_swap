@@ -22,12 +22,12 @@ typedef struct s_world
 	char	**split;
 }	t_world;
 
-//main.c
-void	error_message(const char *s, t_world *world);
 //free.c
 void	free_split(t_world *world);
 void	clean_up(t_world *world, int status);
-//ft_atoi.c
+//helpers.c
+void	valid_nbr(char *split, t_world *world);
+void	error_message(const char *s, t_world *world);
 int		ft_atoi(const char *nptr, t_world *world);
 
 #endif

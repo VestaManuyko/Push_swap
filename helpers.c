@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmanuyko <vmanuyko@student.42vienna.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 17:00:27 by vmanuyko          #+#    #+#             */
-/*   Updated: 2025/05/03 16:30:18 by vmanuyko         ###   ########.fr       */
+/*   Created: 2025/07/09 15:06:26 by vmanuyko          #+#    #+#             */
+/*   Updated: 2025/07/09 15:06:27 by vmanuyko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	error_message(const char *s, t_world *world)
+{
+	write (2, "Error\n", 6);
+	write (2, s, ft_strlen(s));
+	clean_up(world, EXIT_FAILURE);
+}
+
+void	valid_nbr(char *split, t_world *world)
+{
+	size_t	i;
+
+	i = 0;
+	while (split[i])
+	{
+		if (!ft_isdigit(split[i]))
+			error_message("Number contains not only digits", world);
+		i++;
+	}
+}
 
 int	ft_atoi(const char *nptr, t_world *world)
 {
@@ -40,15 +60,3 @@ int	ft_atoi(const char *nptr, t_world *world)
 	error_message("Incorrect number\n", world);
 	return (0);
 }
-/*
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(void)
-{
-	char	*s = " \r -898750827";
-	printf("My:%d\n", ft_atoi(s));
-   	printf("Original:%d\n", atoi(s));
-	return (0);
-}
-*/

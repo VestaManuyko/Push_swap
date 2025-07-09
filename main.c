@@ -12,27 +12,7 @@
 
 #include "push_swap.h"
 
-void	error_message(const char *s, t_world *world)
-{
-	write (2, "Error\n", 6);
-	write (2, s, ft_strlen(s));
-	clean_up(world, EXIT_FAILURE);
-}
-
-void	valid_nbr(char *split, t_world *world)
-{
-	size_t	i;
-
-	i = 0;
-	while (split[i])
-	{
-		if (!ft_isdigit(split[i]))
-			error_message("Number contains not only digits", world);
-		i++;
-	}
-}
-
-void	lst_create(t_world *world, char *argv)
+static void	lst_create(t_world *world, char *argv)
 {
 	int	*nbr;
 	size_t	i;
@@ -59,7 +39,7 @@ void	lst_create(t_world *world, char *argv)
 	}
 }
 
-void	print_list(t_world *world)
+static void	print_list(t_world *world)
 {
 	t_list	*node;
 
@@ -73,18 +53,24 @@ void	print_list(t_world *world)
 	}
 }
 
+static void world_init(t_world *world)
+{
+	t_list	*head;
+
+	head = NULL;
+	world->split = NULL;
+	world->lst = &head;
+}
+
 int	main(int argc, char **argv)
 {
 	size_t	i;
 	size_t	j;
 	t_world	world;
-	t_list	*head;
 
 	i = 1;
 	j = 0;
-	head = NULL;
-	world.split = NULL;
-	world.lst = &head;
+	world_init(&world);
 	if (argc < 1)
 		error_message("Wrong input, needed more arguments", &world);
 	else if (argc > 1)
