@@ -14,7 +14,7 @@
 
 static void	lst_create(t_world *world, char *argv)
 {
-	int	*nbr;
+	int		*nbr;
 	size_t	i;
 	t_list	*node;
 
@@ -53,7 +53,7 @@ static void	print_list(t_world *world)
 	}
 }
 
-static void world_init(t_world *world)
+static void	world_init(t_world *world)
 {
 	t_list	*head;
 
