@@ -19,14 +19,14 @@ void	error_message(const char *s, t_world *world)
 	clean_up(world, EXIT_FAILURE);
 }
 
-void	valid_nbr(char *split, t_world *world)
+void	valid_nbr(char *number, t_world *world)
 {
 	size_t	i;
 
 	i = 0;
-	while (split[i])
+	while (number[i])
 	{
-		if (!ft_isdigit(split[i]))
+		if (!ft_isdigit(number[i]))
 			error_message("Number contains not only digits", world);
 		i++;
 	}

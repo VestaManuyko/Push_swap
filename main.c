@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	lst_create(t_world *world, char *argv)
+static void	str_lst_create(t_world *world, char *argv)
 {
 	int		*nbr;
 	size_t	i;
@@ -39,6 +39,22 @@ static void	lst_create(t_world *world, char *argv)
 	}
 }
 
+static void	int_lst_create(t_world *world, char *argv)
+{
+	int		*nbr;
+	t_list	*node;
+
+	valid_nbr(argv, world);
+	nbr = malloc(sizeof(int));
+	if (!nbr)
+		error_message("Malloc of nbr failed\n", world);
+	*nbr = ft_atoi(argv, world);
+	node = ft_lstnew(nbr);
+	if (!node)
+		error_message("Malloc failed on node creation", world);
+	ft_lstadd_back(world->lst, node);
+}
+
 static void	print_list(t_world *world)
 {
 	t_list	*node;
@@ -53,37 +69,26 @@ static void	print_list(t_world *world)
 	}
 }
 
-static void	world_init(t_world *world)
-{
-	t_list	*head;
-
-	head = NULL;
-	world->split = NULL;
-	world->lst = &head;
-}
-
 int	main(int argc, char **argv)
 {
 	size_t	i;
-	size_t	j;
 	t_world	world;
+	t_list	*head;
 
+	head = NULL;
+	world.split = NULL;
+	world.lst = &head;
 	i = 1;
-	j = 0;
-	world_init(&world);
 	if (argc < 1)
 		error_message("Wrong input, needed more arguments", &world);
 	else if (argc > 1)
 	{
 		while (argv[i])
 		{
-			if (argv[i][j])
-			{
-				if (argv[i][j] == ' ')
-					lst_create(&world, argv[i]);
-				j++;
-			}
-			lst_create(&world, argv[i]);
+			if (ft_strchr(argv[i], ' '))
+				str_lst_create(&world, argv[i]);
+			else
+				int_lst_create(&world, argv[i]);
 			i++;
 		}
 	}

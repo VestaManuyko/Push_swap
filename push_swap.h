@@ -26,7 +26,7 @@ typedef struct s_world
 void	free_split(t_world *world);
 void	clean_up(t_world *world, int status);
 //helpers.c
-void	valid_nbr(char *split, t_world *world);
+void	valid_nbr(char *number, t_world *world);
 void	error_message(const char *s, t_world *world);
 int		ft_atoi(const char *nptr, t_world *world);
 
