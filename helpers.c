@@ -32,10 +32,18 @@ void	valid_nbr(char *number, t_world *world)
 	}
 }
 
-int	ft_atoi(const char *nptr, t_world *world)
+static long	atoi_2(int sign, long number)
+{
+	if ((sign == 1 && number > INT_MAX)
+		|| (sign == -1 && -number < INT_MIN))
+		return (ATOI_ERROR_2);
+	return (0);
+}
+
+long	ft_atoi(const char *nptr)
 {
 	int		sign;
-	int		number;
+	long	number;
 	size_t	i;
 
 	i = 0;
@@ -55,8 +63,8 @@ int	ft_atoi(const char *nptr, t_world *world)
 		number = 0;
 		while (ft_isdigit(nptr[i]))
 			number = number * 10 + (nptr[i++] - '0');
-		return (sign * number);
+		if (!atoi_2(sign, number))
+			return (sign * (int)number);
 	}
-	error_message("Incorrect number\n", world);
-	return (0);
+	return (ATOI_ERROR);
 }

@@ -43,12 +43,19 @@ static void	int_lst_create(t_world *world, char *argv)
 {
 	int		*nbr;
 	t_list	*node;
+	long	check;
 
 	valid_nbr(argv, world);
 	nbr = malloc(sizeof(int));
 	if (!nbr)
 		error_message("Malloc of nbr failed\n", world);
-	*nbr = ft_atoi(argv, world);
+	check = ft_atoi(argv, world);
+	if (check == ATOI_ERROR || check == ATOI_ERROR_2)
+	{
+		free(nbr);
+		error_message("Incorrect number\n", world);
+	}
+	*nbr = (int)check;
 	node = ft_lstnew(nbr);
 	if (!node)
 		error_message("Malloc failed on node creation", world);
