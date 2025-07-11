@@ -26,7 +26,7 @@ void	valid_nbr(char *number, t_world *world)
 	i = 0;
 	while (number[i])
 	{
-		if (!ft_isdigit(number[i]))
+		if (!ft_isdigit(number[i]) && number[i] != '-')
 			error_message("Number contains not only digits", world);
 		i++;
 	}

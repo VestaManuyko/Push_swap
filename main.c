@@ -69,6 +69,24 @@ static void	print_list(t_world *world)
 	}
 }
 
+static void	check_dup(t_list *list, t_world *world)
+{
+	int		content;
+	t_list	*next;
+
+	if (!list)
+		return ;
+	content = *(int *)list->content;
+	next = list->next;
+	while (next)
+	{
+		if (content == *(int *)next->content)
+			error_message("Duplicate found", world);
+		next = next->next;
+	}
+	check_dup(list->next, world);
+}
+
 int	main(int argc, char **argv)
 {
 	size_t	i;
@@ -92,6 +110,7 @@ int	main(int argc, char **argv)
 			i++;
 		}
 	}
+	check_dup(head, &world);
 	print_list(&world);
 	clean_up(&world, EXIT_SUCCESS);
 }
