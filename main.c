@@ -30,7 +30,7 @@ static void	str_lst_create(t_world *world, char *argv)
 		nbr = malloc(sizeof(int));
 		if (!nbr)
 			error_message("Malloc of nbr failed\n", world);
-		*nbr = ft_atoi(world->split[i], world);
+		*nbr = ft_atoi(world->split[i]);
 		node = ft_lstnew(nbr);
 		if (!node)
 			error_message("Malloc failed on node creation", world);
@@ -49,7 +49,7 @@ static void	int_lst_create(t_world *world, char *argv)
 	nbr = malloc(sizeof(int));
 	if (!nbr)
 		error_message("Malloc of nbr failed\n", world);
-	check = ft_atoi(argv, world);
+	check = ft_atoi(argv);
 	if (check == ATOI_ERROR || check == ATOI_ERROR_2)
 	{
 		free(nbr);
