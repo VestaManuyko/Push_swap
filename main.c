@@ -34,7 +34,7 @@ static void	str_lst_create(t_world *world, char *argv)
 		node = ft_lstnew(nbr);
 		if (!node)
 			error_message("Malloc failed on node creation", world);
-		ft_lstadd_back(world->lst, node);
+		ft_lstadd_back(world->stack_a, node);
 		i++;
 	}
 }
@@ -59,16 +59,16 @@ static void	int_lst_create(t_world *world, char *argv)
 	node = ft_lstnew(nbr);
 	if (!node)
 		error_message("Malloc failed on node creation", world);
-	ft_lstadd_back(world->lst, node);
+	ft_lstadd_back(world->stack_a, node);
 }
 
 static void	print_list(t_world *world)
 {
 	t_list	*node;
 
-	if (!world->lst || !*world->lst)
+	if (!world->stack_a || !*world->stack_a)
 		return ;
-	node = *world->lst;
+	node = *world->stack_a;
 	while (node)
 	{
 		ft_printf("%d\n", *(int *)node->content);
@@ -94,6 +94,23 @@ static void	check_dup(t_list *list, t_world *world)
 	check_dup(list->next, world);
 }
 
+void	create_stack_b(t_world *world)
+{
+	size_t	len;
+	size_t	i;
+	t_list	*head2;
+
+	i = 0;
+	head2 = NULL;
+	world->stack_b = &head2;
+	len = ft_lstsize(*(world->stack_a));
+	while (i < len)
+	{
+		ft_lstadd_back(world->stack_b, ft_lstnew(NULL));
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	size_t	i;
@@ -102,7 +119,7 @@ int	main(int argc, char **argv)
 
 	head = NULL;
 	world.split = NULL;
-	world.lst = &head;
+	world.stack_a = &head;
 	i = 1;
 	if (argc < 1)
 		error_message("Wrong input, needed more arguments", &world);
@@ -118,6 +135,7 @@ int	main(int argc, char **argv)
 		}
 	}
 	check_dup(head, &world);
+	create_stack_b(&world);
 	print_list(&world);
 	clean_up(&world, EXIT_SUCCESS);
 }

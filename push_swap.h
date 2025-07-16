@@ -18,11 +18,12 @@
 # include <limits.h>
 
 # define ATOI_ERROR 8888888888
-#define ATOI_ERROR_2 4444444444
+# define ATOI_ERROR_2 4444444444
 
 typedef struct s_world
 {
-	t_list	**lst;
+	t_list	**stack_a; 
+	t_list	**stack_b;
 	char	**split;
 }	t_world;
 

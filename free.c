@@ -29,26 +29,27 @@ void	free_split(t_world *world)
 	world->split = NULL;
 }
 
-static void	free_list(t_list **lst)
+static void	free_list(t_list **list)
 {
 	t_list	*temp;
 
-	if (!lst || !*lst)
+	if (!list || !*list)
 		return ;
-	while (*lst)
+	while (*list)
 	{
-		temp = (*lst)->next;
-		if ((*lst)->content)
-			free((*lst)->content);
-		free(*lst);
-		*lst = temp;
+		temp = (*list)->next;
+		if ((*list)->content)
+			free((*list)->content);
+		free(*list);
+		*list = temp;
 	}
 }
 
 void	clean_up(t_world *world, int status)
 {
 	free_split(world);
-	free_list(world->lst);
+	free_list(world->stack_a);
+	// FIX add smth like this, but debug free_list(world->stack_b);
 	if (status == EXIT_FAILURE)
 		exit(1);
 	if (status == EXIT_SUCCESS)
