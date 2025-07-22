@@ -43,13 +43,18 @@ static void	free_list(t_list **list)
 		free(*list);
 		*list = temp;
 	}
+	*list = NULL;
 }
 
 void	clean_up(t_world *world, int status)
 {
 	free_split(world);
 	free_list(world->stack_a);
-	// FIX add smth like this, but debug free_list(world->stack_b);
+	free(world->stack_a);
+	world->stack_a = NULL;
+	free_list(world->stack_b);
+	free(world->stack_b);
+	world->stack_b = NULL;
 	if (status == EXIT_FAILURE)
 		exit(1);
 	if (status == EXIT_SUCCESS)

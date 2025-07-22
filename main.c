@@ -94,34 +94,29 @@ static void	check_dup(t_list *list, t_world *world)
 	check_dup(list->next, world);
 }
 
-void	create_stack_b(t_world *world)
+static void	create_stacks(t_world *world)
 {
-	size_t	len;
-	size_t	i;
-	t_list	*head2;
-
-	i = 0;
-	head2 = NULL;
-	world->stack_b = &head2;
-	len = ft_lstsize(*(world->stack_a));
-	while (i < len)
-	{
-		ft_lstadd_back(world->stack_b, ft_lstnew(NULL));
-		i++;
-	}
+	world->stack_a = malloc(sizeof(t_list *));
+	if (!world->stack_a)
+		error_message("Malloc for stack_a failed", world);
+	*(world->stack_a) = NULL;
+	world->stack_b = malloc(sizeof(t_list *));
+	if (!world->stack_b)
+		error_message("Malloc for stack_b failed", world);
+	*(world->stack_b) = NULL;
 }
 
 int	main(int argc, char **argv)
 {
 	size_t	i;
 	t_world	world;
-	t_list	*head;
 
-	head = NULL;
 	world.split = NULL;
-	world.stack_a = &head;
+	create_stacks(&world);
 	i = 1;
-	if (argc < 1)
+	if (argc <= 1)
+		return (0);
+	if (argc == 2)
 		error_message("Wrong input, needed more arguments", &world);
 	else if (argc > 1)
 	{
@@ -134,11 +129,7 @@ int	main(int argc, char **argv)
 			i++;
 		}
 	}
-	check_dup(head, &world);
-	create_stack_b(&world);
-	print_list(&world);
-	push_to_b(&world);
-	ft_printf("\nnew list:\n");
+	check_dup((*world.stack_a), &world);
 	print_list(&world);
 	clean_up(&world, EXIT_SUCCESS);
 }
