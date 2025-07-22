@@ -11,3 +11,33 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	rotate_a(t_world *world)
+{
+	t_list	*temp;
+
+	if (!(*world->stack_a))
+		return ;
+	temp = *world->stack_a;
+	(*world->stack_a) = (*world->stack_a)->next;
+	ft_lstadd_back(world->stack_a, temp);
+	temp->next = NULL;
+}
+
+void	rotate_b(t_world *world)
+{
+	t_list	*temp;
+
+	if (!(*world->stack_b))
+		return ;
+	temp = *world->stack_b;
+	(*world->stack_b) = (*world->stack_b)->next;
+	ft_lstadd_back(world->stack_b, temp);
+	temp->next = NULL;
+}
+
+void	rotate_all(t_world *world)
+{
+	rotate_a(world);
+	rotate_b(world);
+}

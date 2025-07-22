@@ -41,5 +41,9 @@ void	swap_all(t_world *world); //ss
 //push_op.c
 void	push_to_b(t_world *world); //pb
 void	push_to_a(t_world *world); //pa
+//rotate_op.c
+void	rotate_a(t_world *world); //ra
+void	rotate_b(t_world *world); //rb
+void	rotate_all(t_world *world); //rr
 
 #endif
