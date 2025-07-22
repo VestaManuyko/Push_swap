@@ -112,6 +112,8 @@ int	main(int argc, char **argv)
 	t_world	world;
 
 	world.split = NULL;
+	world.stack_a = NULL;
+	world.stack_b = NULL;
 	create_stacks(&world);
 	i = 1;
 	if (argc <= 1)
@@ -130,6 +132,7 @@ int	main(int argc, char **argv)
 		}
 	}
 	check_dup((*world.stack_a), &world);
+	rev_rotate_a(&world);
 	print_list(&world);
 	clean_up(&world, EXIT_SUCCESS);
 }
