@@ -137,5 +137,8 @@ int	main(int argc, char **argv)
 	check_dup(head, &world);
 	create_stack_b(&world);
 	print_list(&world);
+	push_to_b(&world);
+	ft_printf("\nnew list:\n");
+	print_list(&world);
 	clean_up(&world, EXIT_SUCCESS);
 }

@@ -22,7 +22,7 @@
 
 typedef struct s_world
 {
-	t_list	**stack_a; 
+	t_list	**stack_a;
 	t_list	**stack_b;
 	char	**split;
 }	t_world;
@@ -34,5 +34,12 @@ void	clean_up(t_world *world, int status);
 void	valid_nbr(char *number, t_world *world);
 void	error_message(const char *s, t_world *world);
 long	ft_atoi(const char *nptr);
+//swap_op.c
+void	swap_a(t_world *world); //sa
+void	swap_b(t_world *world); //sb
+void	swap_all(t_world *world); //ss
+//push_op.c
+void	push_to_b(t_world *world); //pb
+void	push_to_a(t_world *world); //pa
 
 #endif

@@ -35,7 +35,7 @@ void	valid_nbr(char *number, t_world *world)
 static long	atoi_2(int sign, long number)
 {
 	if ((sign == 1 && number > INT_MAX)
-		|| (sign == -1 && -number < INT_MIN))
+		|| (sign == -1 && (-number) < INT_MIN))
 		return (ATOI_ERROR_2);
 	return (0);
 }
