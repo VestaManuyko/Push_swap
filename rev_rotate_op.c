@@ -27,6 +27,7 @@ void	rev_rotate_a(t_world *world)
 	}
 	ft_lstadd_front(world->stack_a, ft_lstlast((*world->stack_a)));
 	new_last->next = NULL;
+	ft_printf("rra\n");
 }
 
 void	rev_rotate_b(t_world *world)
@@ -44,10 +45,12 @@ void	rev_rotate_b(t_world *world)
 	}
 	ft_lstadd_front(world->stack_b, ft_lstlast((*world->stack_b)));
 	new_last->next = NULL;
+	ft_printf("rrb\n");
 }
 
 void	rev_rotate_all(t_world *world)
 {
 	rev_rotate_a(world);
 	rev_rotate_b(world);
+	ft_printf("rrr\n");
 }

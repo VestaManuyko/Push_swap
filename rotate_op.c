@@ -22,6 +22,7 @@ void	rotate_a(t_world *world)
 	(*world->stack_a) = (*world->stack_a)->next;
 	ft_lstadd_back(world->stack_a, temp);
 	temp->next = NULL;
+	ft_printf("ra\n");
 }
 
 void	rotate_b(t_world *world)
@@ -34,10 +35,12 @@ void	rotate_b(t_world *world)
 	(*world->stack_b) = (*world->stack_b)->next;
 	ft_lstadd_back(world->stack_b, temp);
 	temp->next = NULL;
+	ft_printf("rb\n");
 }
 
 void	rotate_all(t_world *world)
 {
 	rotate_a(world);
 	rotate_b(world);
+	ft_printf("rr\n");
 }
