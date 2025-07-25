@@ -12,56 +12,6 @@
 
 #include "push_swap.h"
 
-static void	str_lst_create(t_world *world, char *argv)
-{
-	int		*nbr;
-	size_t	i;
-	t_list	*node;
-
-	i = 0;
-	if (world->split)
-		free_split(world);
-	world->split = ft_split(argv, ' ');
-	if (!world->split)
-		error_message("Malloc failed on split", world);
-	while (world->split[i])
-	{
-		valid_nbr(world->split[i], world);
-		nbr = malloc(sizeof(int));
-		if (!nbr)
-			error_message("Malloc of nbr failed\n", world);
-		*nbr = ft_atoi(world->split[i]);
-		node = ft_lstnew(nbr);
-		if (!node)
-			error_message("Malloc failed on node creation", world);
-		ft_lstadd_back(world->stack_a, node);
-		i++;
-	}
-}
-
-static void	int_lst_create(t_world *world, char *argv)
-{
-	int		*nbr;
-	t_list	*node;
-	long	check;
-
-	valid_nbr(argv, world);
-	nbr = malloc(sizeof(int));
-	if (!nbr)
-		error_message("Malloc of nbr failed\n", world);
-	check = ft_atoi(argv);
-	if (check == ATOI_ERROR || check == ATOI_ERROR_2)
-	{
-		free(nbr);
-		error_message("Incorrect number\n", world);
-	}
-	*nbr = (int)check;
-	node = ft_lstnew(nbr);
-	if (!node)
-		error_message("Malloc failed on node creation", world);
-	ft_lstadd_back(world->stack_a, node);
-}
-
 static void	print_list(t_world *world)
 {
 	t_list	*node;

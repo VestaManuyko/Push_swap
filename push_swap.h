@@ -49,5 +49,8 @@ void	rotate_all(t_world *world); //rr
 void	rev_rotate_a(t_world *world); //rra
 void	rev_rotate_b(t_world *world); //rrb
 void	rev_rotate_all(t_world *world); //rrr
+//list.c
+void	int_lst_create(t_world *world, char *argv);
+void	str_lst_create(t_world *world, char *argv);
 
 #endif
