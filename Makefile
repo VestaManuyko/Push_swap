@@ -33,7 +33,7 @@ libft/ft_lstdelone_bonus.c libft/ft_lstclear_bonus.c \
 libft/ft_putchar_fd.c libft/ft_lstiter_bonus.c libft/ft_lstmap_bonus.c
 #project program sources
 PSRC = main.c free.c helpers.c swap_op.c push_op.c rotate_op.c \
-rev_rotate_op.c list.c
+rev_rotate_op.c list.c sort.c
 #object files
 OBJ = $(LIBFTSRC:.c=.o)
 POBJ = $(PSRC:.c=.o)

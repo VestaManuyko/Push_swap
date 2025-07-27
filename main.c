@@ -72,10 +72,10 @@ int	check_sort(t_world *world)
 	while (node->next)
 	{
 		if (*(int *)node->content > *(int *)node->next->content)
-			return (1);
+			return (0);
 		node = node->next;
 	}
-	return (0);
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -85,11 +85,9 @@ int	main(int argc, char **argv)
 
 	world_init(&world);
 	i = 1;
-	if (argc <= 1)
+	if (argc <= 2)
 		return (0);
-	if (argc == 2)
-		error_message("Wrong input, needed more arguments", &world);
-	else if (argc > 1)
+	else
 	{
 		while (argv[i])
 		{
@@ -101,9 +99,9 @@ int	main(int argc, char **argv)
 		}
 	}
 	check_dup((*world.stack_a), &world);
-	if (!check_sort(&world))
+	if (check_sort(&world))
 		return (0);
-	//sort list if needed
+	sort_list(&world);
 	print_list(&world);
 	clean_up(&world, EXIT_SUCCESS);
 }

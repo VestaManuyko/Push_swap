@@ -31,7 +31,10 @@ void	int_lst_create(t_world *world, char *argv)
 	*nbr = (int)check;
 	node = ft_lstnew(nbr);
 	if (!node)
+	{
+		free(nbr);
 		error_message("Malloc failed on node creation", world);
+	}
 	ft_lstadd_back(world->stack_a, node);
 }
 
