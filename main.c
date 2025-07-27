@@ -56,15 +56,34 @@ static void	create_stacks(t_world *world)
 	*(world->stack_b) = NULL;
 }
 
+static void	world_init(t_world *world)
+{
+	world->split = NULL;
+	world->stack_a = NULL;
+	world->stack_b = NULL;
+	create_stacks(world);
+}
+
+int	check_sort(t_world *world)
+{
+	t_list	*node;
+
+	node = *(world->stack_a);
+	while (node->next)
+	{
+		if (*(int *)node->content > *(int *)node->next->content)
+			return (1);
+		node = node->next;
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	size_t	i;
 	t_world	world;
 
-	world.split = NULL;
-	world.stack_a = NULL;
-	world.stack_b = NULL;
-	create_stacks(&world);
+	world_init(&world);
 	i = 1;
 	if (argc <= 1)
 		return (0);
@@ -82,7 +101,9 @@ int	main(int argc, char **argv)
 		}
 	}
 	check_dup((*world.stack_a), &world);
-	rev_rotate_a(&world);
+	if (!check_sort(&world))
+		return (0);
+	//sort list if needed
 	print_list(&world);
 	clean_up(&world, EXIT_SUCCESS);
 }
