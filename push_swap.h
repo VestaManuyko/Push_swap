@@ -25,6 +25,11 @@ typedef struct s_world
 	t_list	**stack_a;
 	t_list	**stack_b;
 	char	**split;
+	int		min;
+	int		max;
+	int		pos_min;
+	int		pos_max;
+	int		len;
 }	t_world;
 
 //free.c
