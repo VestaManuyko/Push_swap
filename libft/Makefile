@@ -10,44 +10,34 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = push_swap
-BNS_NAME = push_swap_bonus
-LIBFT = libft/libft.a
+NAME = libft.a
 CC = cc -Wall -Wextra -Werror
-#project program sources
-PSRC = main.c free.c helpers.c swap_op.c push_op.c rotate_op.c \
-rev_rotate_op.c list.c sort.c
-#object files
-POBJ = $(PSRC:.c=.o)
+SRC =ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
+ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c ft_memcpy.c \
+ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
+ft_putstr_fd.c ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c \
+ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c \
+ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
+ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
+ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
+ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c ft_printf.c \
+ft_get_next_line.c ft_get_next_line_utils.c ft_help.c
+OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(LIBFT) $(POBJ)
-	@$(CC) $(POBJ) $(LIBFT) -o $(NAME)
-	@echo "Push_swap compiled successfully."
+$(NAME) : $(OBJ)
+	@ar -rsc $@ $^
 
 %.o : %.c
 	@$(CC) -c $< -o $@
 
-$(LIBFT) :
-	@$(MAKE) -C libft --no-print-directory
-
 clean :
-	@rm -f $(OBJ) $(POBJ)
-	@$(MAKE) -C libft --no-print-directory clean
-	@echo "Cleaned."
+	@rm -f $(OBJ)
 
 fclean : clean
-	@rm -f $(LIBFT) $(NAME)
-	@$(MAKE) -C libft --no-print-directory fclean
+	@rm -f $(NAME)
 
 re : fclean $(NAME)
 
-bonus : $(BNS_NAME)
-
-$(BNS_NAME) : $(LIBFT) $(BOBJ)
-	@$(CC) $(BOBJ) $(LIBFT) -o $(BNS_NAME)
-	@echo "Push_swap bonus compiled successfully."
-#if you decide on bonus add clean for bonus files aswell
-
-.PHONY : all clean fclean re bonus
+.PHONY : all clean fclean re

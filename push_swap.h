@@ -38,7 +38,7 @@ void	clean_up(t_world *world, int status);
 //helpers.c
 void	valid_nbr(char *number, t_world *world);
 void	error_message(const char *s, t_world *world);
-long	ft_atoi(const char *nptr);
+long	ft_atoi_new(const char *nptr);
 //swap_op.c
 void	swap_a(t_world *world); //sa
 void	swap_b(t_world *world); //sb

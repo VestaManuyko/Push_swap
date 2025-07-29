@@ -1,49 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmanuyko <vmanuyko@student.42vienna.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/09 15:06:26 by vmanuyko          #+#    #+#             */
-/*   Updated: 2025/07/09 15:06:27 by vmanuyko         ###   ########.fr       */
+/*   Created: 2025/04/24 17:00:27 by vmanuyko          #+#    #+#             */
+/*   Updated: 2025/05/03 16:30:18 by vmanuyko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "push_swap.h"
-
-void	error_message(const char *s, t_world *world)
-{
-	write (2, "Error\n", 6);
-	write (2, s, ft_strlen(s));
-	clean_up(world, EXIT_FAILURE);
-}
-
-void	valid_nbr(char *number, t_world *world)
-{
-	size_t	i;
-
-	i = 0;
-	while (number[i])
-	{
-		if (!ft_isdigit(number[i]) && number[i] != '-')
-			error_message("Number contains not only digits", world);
-		i++;
-	}
-}
-
-static long	atoi_2(int sign, long number)
-{
-	if ((sign == 1 && number > INT_MAX)
-		|| (sign == -1 && (-number) < INT_MIN))
-		return (ATOI_ERROR_2);
-	return (0);
-}
-
-long	ft_atoi_new(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	int		sign;
-	long	number;
+	int		number;
 	size_t	i;
 
 	i = 0;
@@ -58,13 +29,22 @@ long	ft_atoi_new(const char *nptr)
 				sign *= -1;
 			i++;
 		}
-		if (nptr[i] == '-' || nptr[i] == '+')
-			break ;
 		number = 0;
 		while (ft_isdigit(nptr[i]))
 			number = number * 10 + (nptr[i++] - '0');
-		if (!atoi_2(sign, number))
-			return (sign * (int)number);
+		return (sign * number);
 	}
-	return (ATOI_ERROR);
+	return (0);
 }
+/*
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+	char	*s = " \r -898750827";
+	printf("My:%d\n", ft_atoi(s));
+   	printf("Original:%d\n", atoi(s));
+	return (0);
+}
+*/
