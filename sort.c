@@ -19,6 +19,8 @@ static void	sort_3(t_world *world)
 	node = *world->stack_a;
 	if (!node->next)
 		return ;
+	if (!node->next->next && !sorted(world))
+		return (rotate_a(world));
 	if (*(int *)node->content < *(int *)node->next->content
 		&& *(int *)node->content < *(int *)node->next->next->content)
 		return (swap_a(world), rotate_a(world));

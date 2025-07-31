@@ -68,7 +68,7 @@ void	str_lst_create(t_world *world, char *argv);
 //sort.c
 void	sort_list(t_world *world);
 //main.c
-int	sorted(t_world *world);
+int		sorted(t_world *world);
 //max_min.c
 void	find_minmax(t_world *world);
 //count_op.c
