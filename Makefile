@@ -13,10 +13,10 @@
 NAME = push_swap
 BNS_NAME = push_swap_bonus
 LIBFT = libft/libft.a
-CC = cc -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror -g
 #project program sources
 PSRC = main.c free.c helpers.c swap_op.c push_op.c rotate_op.c \
-rev_rotate_op.c list.c sort.c
+rev_rotate_op.c list.c sort.c max_min.c count_op.c
 #object files
 POBJ = $(PSRC:.c=.o)
 

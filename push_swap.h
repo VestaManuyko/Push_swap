@@ -19,17 +19,25 @@
 
 # define ATOI_ERROR 8888888888
 # define ATOI_ERROR_2 4444444444
+# define MAX 10000
+# define MIN 30000
+
+typedef struct s_limit
+{
+	int	min;
+	int	max;
+}	t_limit;
 
 typedef struct s_world
 {
 	t_list	**stack_a;
 	t_list	**stack_b;
 	char	**split;
-	int		min;
-	int		max;
-	int		pos_min;
-	int		pos_max;
+	t_limit	b;
+	t_limit	pos_b;
 	int		len;
+	int		op;
+	int		pos_min_op;
 }	t_world;
 
 //free.c
@@ -60,6 +68,10 @@ void	str_lst_create(t_world *world, char *argv);
 //sort.c
 void	sort_list(t_world *world);
 //main.c
-int	check_sort(t_world *world);
+int	sorted(t_world *world);
+//max_min.c
+void	find_minmax(t_world *world);
+//count_op.c
+void	cheap_sort(t_world *world);
 
 #endif

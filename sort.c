@@ -12,55 +12,30 @@
 
 #include "push_swap.h"
 
-void	sort_3(t_world *world)
+static void	sort_3(t_world *world)
 {
 	t_list	*node;
 
 	node = *world->stack_a;
 	if (!node->next)
 		return ;
+	if (*(int *)node->content < *(int *)node->next->content
+		&& *(int *)node->content < *(int *)node->next->next->content)
+		return (swap_a(world), rotate_a(world));
 	if (*(int *)node->content > *(int *)node->next->content)
 	{
-		swap_a(world);
-		node = node->next;
-		if (*(int *)node->content > *(int *)node->next->content)
-			swap_a(world);
+		if (*(int *)node->next->content > *(int *)node->next->next->content)
+			return (rotate_a(world), swap_a(world));
+		if (*(int *)node->next->content < *(int *)node->next->next->content)
+		{
+			if (*(int *)node->content > *(int *)node->next->next->content)
+				return (rotate_a(world));
+			else
+				return (swap_a(world));
+		}
 	}
 	else
-	{
 		rev_rotate_a(world);
-		swap_a(world);
-	}
-}
-
-void	find_minmax(t_world *world)
-{
-	t_list	*node;
-	int 	pos;
-
-	pos = 0;
-	node = *world->stack_a;
-	if (*(int *)node->content)
-		world->min = *(int *)node->content;
-	while (node)
-	{
-		if (world->min > *(int *)node->content)
-		{
-			world->min = *(int *)node->content;
-			world->pos_min = pos;
-		}
-		if (world->min == *(int *)node->content)
-			world->pos_min = pos;
-		if (world->max == *(int *)node->content)
-			world->pos_max = pos;
-		if (world->max < *(int *)node->content)
-		{
-			world->max = *(int *)node->content;
-			world->pos_max = pos;
-		}
-		node= node->next;
-		pos++;
-	}
 }
 
 static int	empty_stack(t_world *world, char stack)
@@ -70,7 +45,7 @@ static int	empty_stack(t_world *world, char stack)
 	if (stack == 'A')
 	{
 		node = *world->stack_a;
-		if (((node->next)->next)->next == NULL)
+		if (!((node->next)->next))
 			return (0);
 		return (1);
 	}
@@ -84,25 +59,26 @@ static int	empty_stack(t_world *world, char stack)
 	return (0);
 }
 
+void	back_to_a(t_world *world)
+{
+	while (!empty_stack(world, 'B'))
+	{
+		push_to_a(world);
+	}
+}
+
 void	sort_big(t_world *world)
 {
+	push_to_b(world);
+	push_to_b(world);
 	while (empty_stack(world, 'A'))
 	{
 		find_minmax(world);
-		if (world->pos_min == 0)
-			push_to_b(world);
-		else
-		{
-			if (world->pos_min > world->len/2)
-				rev_rotate_a(world);
-			else
-				rotate_a(world);
-		}
+		cheap_sort(world);
 	}
-	if (!check_sort(world))
+	if (!sorted(world))
 		sort_3(world);
-	while (empty_stack(world, 'B'))
-		push_to_a(world);
+	back_to_a(world);
 }
 
 void	sort_list(t_world *world)
