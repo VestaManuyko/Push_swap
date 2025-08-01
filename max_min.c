@@ -17,7 +17,7 @@ static void	find_max(t_world *world)
 	t_list	*node;
 	int		pos;
 
-	pos = 0;
+	pos = 1;
 	node = *world->stack_b;
 	if (*(int *)node->content)
 		world->b.max = *(int *)node->content;
@@ -40,7 +40,7 @@ static void	find_min(t_world *world)
 	t_list	*node;
 	int		pos;
 
-	pos = 0;
+	pos = 1;
 	node = *world->stack_b;
 	if (*(int *)node->content)
 		world->b.min = *(int *)node->content;

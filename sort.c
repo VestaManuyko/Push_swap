@@ -61,7 +61,7 @@ static int	empty_stack(t_world *world, char stack)
 	return (0);
 }
 
-void	sort_big(t_world *world)
+static void	sort_big(t_world *world)
 {
 	push_to_b(world);
 	push_to_b(world);
@@ -76,6 +76,9 @@ void	sort_big(t_world *world)
 
 void	sort_list(t_world *world)
 {
+	t_list	*node;
+
+	node = *world->stack_a;
 	world->len = ft_lstsize(*world->stack_a);
 	if (world->len == 2)
 	{
@@ -84,6 +87,12 @@ void	sort_list(t_world *world)
 	}
 	if (world->len == 3)
 		sort_3(world);
+	if (world->len == 4)
+	{
+		min_4(world);
+		sort_3(world);
+		push_to_a(world);
+	}
 	else
 		sort_big(world);
 }

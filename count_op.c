@@ -103,15 +103,18 @@ void	find_cheap(t_world *world)
 	while (node)
 	{
 		nbr = get_nbr(world, pos);
-		if (*(int *)(*world->stack_a)->content > world->b.max)
+		if (*(int *)node->content > world->b.max)
 			count_max(world, pos);
-		if (*(int *)(*world->stack_a)->content < world->b.min)
+		if (*(int *)node->content < world->b.min)
 			count_min(world, pos);
 		else
 			count_mid(world, pos, nbr);
 		pos++;
 		if (!world->min_op)
+		{
 			world->min_op = world->op;
+			world->pos_min_op = pos;
+		}
 		if (world->op < world->min_op)
 		{
 			world->min_op = world->op;
@@ -119,5 +122,4 @@ void	find_cheap(t_world *world)
 		}
 		node = node->next;
 	}
-	ft_printf("Min nbr of ops %d and the pos %d\n", world->op, world->pos_min_op);
 }

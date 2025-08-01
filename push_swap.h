@@ -78,6 +78,8 @@ void	int_lst_create(t_world *world, char *argv);
 void	str_lst_create(t_world *world, char *argv);
 //sort.c
 void	sort_list(t_world *world);
+//sort2.c
+void	min_4(t_world *world);
 //main.c
 int		sorted(t_world *world);
 //max_min.c
