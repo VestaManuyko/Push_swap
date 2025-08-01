@@ -12,78 +12,112 @@
 
 #include "push_swap.h"
 
+static void	get_rot_op(t_world *world)
+{
+	if (world->rot.ra != 0)
+	{
+		if (world->rot.ra > world->rot.rb)
+			world->op = world->rot.ra;
+		if (world->rot.rrb != 0)
+			world->op += world->rot.rrb;
+		if (world->rot.rb > world->rot.ra)
+			world->op = world->rot.rb;
+	}
+	if (world->rot.rra != 0)
+	{
+		if (world->rot.rra > world->rot.rrb)
+			world->op = world->rot.rra;
+		if (world->rot.rrb > world->rot.rra)
+			world->op = world->rot.rrb;
+		if (world->rot.rb != 0)
+			world->op += world->rot.rb;
+	}
+}
+
 static void	count_max(t_world *world, int pos)
 {
-	int	ra;
-	int	rra;
-	int	op;
-
-	op = 0;
-	ra = 0;
-	rra = 0;
-	if (pos <= world->len/2)
-		ra = pos - 1;
+	if (pos <= world->len / 2)
+		world->rot.ra = pos - 1;
 	else
-		rra = (world->len - pos) + 1;
-	if (world->pos_b.max != 1 && rra != 0)
-		op = rra + 1;
-	if (world->pos_b.max != 1 && ra != 0)
-		op = ra + 2;
-	if (!world->op)
-		world->op = op;
-	if (op < world->op)
+		world->rot.rra = (world->len - pos) + 1;
+	if (world->pos_b.max != 1)
 	{
-		world->op = op;
-		world->pos_min_op = pos;
+		if (world->pos_b.max <= world->len / 2)
+			world->rot.rb = world->pos_b.max - 1;
+		else
+			world->rot.rrb = (world->len - world->pos_b.max) + 1;
 	}
+	get_rot_op(world);
+	world->op += 1;
 }
 
 static void	count_min(t_world *world, int pos)
 {
-	int	ra;
-	int	rra;
-	int	op;
-
-	op = 0;
-	ra = 0;
-	rra = 0;
-	if (pos <= world->len/2)
-		ra = pos;
+	if (pos <= world->len / 2)
+		world->rot.ra = pos - 1;
 	else
-		rra = (world->len - pos) + 1;
-	if (rra != 0)
-		op = rra + 2;
-	if (!world->op)
-		world->op = op;
-	if (op < world->op)
+		world->rot.rra = (world->len - pos) + 1;
+	if (world->pos_b.min != 1)
 	{
-		world->op = op;
-		world->pos_min_op = pos;
+		if (world->pos_b.min <= world->len / 2)
+			world->rot.rb = world->pos_b.min - 1;
+		else
+			world->rot.rrb = (world->len - world->pos_b.min) + 1;
 	}
+	get_rot_op(world);
+	world->op += 1;
 }
 
-// static void	count_mid(t_world *world, int pos)
-// {
+static void	count_mid(t_world *world, int pos, int nbr)
+{
+	t_list	*node;
+	int		pos_b;
 
-// }
+	pos_b = 0;
+	node = *world->stack_b;
+	while (node && nbr < *(int *)node->content)
+	{
+		node = node->next;
+		pos_b++;
+	}
+	if (pos <= world->len / 2)
+		world->rot.ra = pos;
+	if (pos > world->len / 2)
+		world->rot.rra = (world->len - pos) + 1;
+	if (pos_b <= world->len / 2)
+		world->rot.rb = pos - 1;
+	if (pos_b > world->len / 2)
+		world->rot.rrb = (world->len - pos) + 1;
+	get_rot_op(world);
+	world->op += 1;
+}
 
-void	cheap_sort(t_world *world)
+void	find_cheap(t_world *world)
 {
 	t_list	*node;
 	int		pos;
+	int		nbr;
 
 	pos = 1;
 	node = *world->stack_a;
 	while (node)
 	{
+		nbr = get_nbr(world, pos);
 		if (*(int *)(*world->stack_a)->content > world->b.max)
 			count_max(world, pos);
 		if (*(int *)(*world->stack_a)->content < world->b.min)
 			count_min(world, pos);
-		// else
-		// 	count_mid(world, pos);
+		else
+			count_mid(world, pos, nbr);
 		pos++;
+		if (!world->min_op)
+			world->min_op = world->op;
+		if (world->op < world->min_op)
+		{
+			world->min_op = world->op;
+			world->pos_min_op = pos;
+		}
 		node = node->next;
 	}
-	ft_printf("Min nbr of ops needed for this list %d and the pos of element %d\n", world->op, world->pos_min_op);
+	ft_printf("Min nbr of ops %d and the pos %d\n", world->op, world->pos_min_op);
 }

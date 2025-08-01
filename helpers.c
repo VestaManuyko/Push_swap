@@ -19,6 +19,23 @@ void	error_message(const char *s, t_world *world)
 	clean_up(world, EXIT_FAILURE);
 }
 
+int	get_nbr(t_world *world, int pos)
+{
+	t_list	*node;
+	int		i;
+	int		nbr;
+
+	i = 0;
+	node = (*world->stack_a);
+	while (i < pos && node)
+	{
+		i++;
+		nbr = *(int *)node->content;
+		node = node->next;
+	}
+	return (nbr);
+}
+
 void	valid_nbr(char *number, t_world *world)
 {
 	size_t	i;

@@ -47,40 +47,31 @@ static int	empty_stack(t_world *world, char stack)
 	if (stack == 'A')
 	{
 		node = *world->stack_a;
-		if (!((node->next)->next))
-			return (0);
-		return (1);
+		if (!node)
+			return (1);
+		return (0);
 	}
 	if (stack == 'B')
 	{
 		node = *world->stack_b;
-		if (node == NULL)
-			return (0);
-		return (1);
+		if (!node)
+			return (1);
+		return (0);
 	}
 	return (0);
-}
-
-void	back_to_a(t_world *world)
-{
-	while (!empty_stack(world, 'B'))
-	{
-		push_to_a(world);
-	}
 }
 
 void	sort_big(t_world *world)
 {
 	push_to_b(world);
 	push_to_b(world);
-	while (empty_stack(world, 'A'))
+	while (!empty_stack(world, 'A'))
 	{
 		find_minmax(world);
-		cheap_sort(world);
+		find_cheap(world);
 	}
-	if (!sorted(world))
-		sort_3(world);
-	back_to_a(world);
+	while (!empty_stack(world, 'B'))
+		push_to_a(world);
 }
 
 void	sort_list(t_world *world)

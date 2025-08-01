@@ -28,6 +28,14 @@ typedef struct s_limit
 	int	max;
 }	t_limit;
 
+typedef struct s_rot
+{
+	int	ra;
+	int	rb;
+	int	rra;
+	int	rrb;
+}	t_rot;
+
 typedef struct s_world
 {
 	t_list	**stack_a;
@@ -37,7 +45,9 @@ typedef struct s_world
 	t_limit	pos_b;
 	int		len;
 	int		op;
+	int		min_op;
 	int		pos_min_op;
+	t_rot	rot;
 }	t_world;
 
 //free.c
@@ -47,6 +57,7 @@ void	clean_up(t_world *world, int status);
 void	valid_nbr(char *number, t_world *world);
 void	error_message(const char *s, t_world *world);
 long	ft_atoi_new(const char *nptr);
+int		get_nbr(t_world *world, int pos);
 //swap_op.c
 void	swap_a(t_world *world); //sa
 void	swap_b(t_world *world); //sb
@@ -72,6 +83,6 @@ int		sorted(t_world *world);
 //max_min.c
 void	find_minmax(t_world *world);
 //count_op.c
-void	cheap_sort(t_world *world);
+void	find_cheap(t_world *world);
 
 #endif

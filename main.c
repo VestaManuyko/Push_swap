@@ -67,6 +67,11 @@ static void	world_init(t_world *world)
 	world->b.min = 0;
 	world->op = 0;
 	world->pos_min_op = 0;
+	world->min_op = 0;
+	world->rot.ra = 0;
+	world->rot.rb = 0;
+	world->rot.rra = 0;
+	world->rot.rrb = 0;
 	create_stacks(world);
 }
 
