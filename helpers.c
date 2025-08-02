@@ -27,7 +27,7 @@ int	get_nbr(t_world *world, int pos)
 
 	i = 0;
 	node = (*world->stack_a);
-	while (i < pos && node)
+	while (node && i < pos)
 	{
 		i++;
 		nbr = *(int *)node->content;

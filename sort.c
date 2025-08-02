@@ -67,8 +67,16 @@ static void	sort_big(t_world *world)
 	push_to_b(world);
 	while (!empty_stack(world, 'A'))
 	{
+		world->min_op = -1;
+		init_to_0(world);
 		find_minmax(world);
 		find_cheap(world);
+		sort_to_b(world);
+		sort_b(world);
+		ft_printf("List A:\n");
+		print_list(world);
+		ft_printf("List B\n");
+		printf_list_2(world);
 	}
 	while (!empty_stack(world, 'B'))
 		push_to_a(world);
@@ -79,15 +87,15 @@ void	sort_list(t_world *world)
 	t_list	*node;
 
 	node = *world->stack_a;
-	world->len = ft_lstsize(*world->stack_a);
-	if (world->len == 2)
+	world->a_len = ft_lstsize(*world->stack_a);
+	if (world->a_len == 2)
 	{
 		rotate_a(world);
 		return ;
 	}
-	if (world->len == 3)
+	if (world->a_len == 3)
 		sort_3(world);
-	if (world->len == 4)
+	if (world->a_len == 4)
 	{
 		min_4(world);
 		sort_3(world);

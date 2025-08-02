@@ -12,13 +12,26 @@
 
 #include "push_swap.h"
 
-static void	print_list(t_world *world)
+void	print_list(t_world *world)
 {
 	t_list	*node;
 
 	if (!world->stack_a || !*world->stack_a)
 		return ;
 	node = *world->stack_a;
+	while (node)
+	{
+		ft_printf("%d\n", *(int *)node->content);
+		node = node->next;
+	}
+}
+void	printf_list_2(t_world *world)
+{
+	t_list	*node;
+
+	if (!world->stack_b || !*world->stack_b)
+		return ;
+	node = *world->stack_b;
 	while (node)
 	{
 		ft_printf("%d\n", *(int *)node->content);
@@ -67,11 +80,14 @@ static void	world_init(t_world *world)
 	world->b.min = 0;
 	world->op = 0;
 	world->pos_min_op = 0;
-	world->min_op = 0;
+	world->min_op = -1;
 	world->rot.ra = 0;
 	world->rot.rb = 0;
 	world->rot.rra = 0;
 	world->rot.rrb = 0;
+	world->b_len = 0;
+	world->a_len = 0;
+	world->do_all = 0;
 	create_stacks(world);
 }
 
@@ -96,7 +112,7 @@ int	main(int argc, char **argv)
 
 	world_init(&world);
 	i = 1;
-	if (argc <= 2)
+	if (argc < 2)
 		return (0);
 	else
 	{

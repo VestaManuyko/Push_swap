@@ -43,11 +43,13 @@ typedef struct s_world
 	char	**split;
 	t_limit	b;
 	t_limit	pos_b;
-	int		len;
+	int		a_len;
+	int		b_len;
 	int		op;
 	int		min_op;
 	int		pos_min_op;
 	t_rot	rot;
+	int		do_all;
 }	t_world;
 
 //free.c
@@ -80,11 +82,15 @@ void	str_lst_create(t_world *world, char *argv);
 void	sort_list(t_world *world);
 //sort2.c
 void	min_4(t_world *world);
+void	sort_to_b(t_world *world);
 //main.c
 int		sorted(t_world *world);
+void	print_list(t_world *world);
+void	printf_list_2(t_world *world);
 //max_min.c
 void	find_minmax(t_world *world);
 //count_op.c
 void	find_cheap(t_world *world);
+void	init_to_0(t_world *world);
 
 #endif
