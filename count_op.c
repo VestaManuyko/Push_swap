@@ -14,24 +14,25 @@
 
 static void	get_rot_op(t_world *world)
 {
+	ft_printf("ra %d rra %d rb %d rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
 	if (world->rot.ra)
 	{
 		if (world->rot.ra >= world->rot.rb)
 			world->op = world->rot.ra;
 		if (world->rot.rb > world->rot.ra)
 			world->op = world->rot.rb;
-		if (world->rot.rrb)
-			world->op += world->rot.rrb;
 	}
+	if (world->rot.rrb)
+		world->op += world->rot.rrb;
 	if (world->rot.rra)
 	{
 		if (world->rot.rra >= world->rot.rrb)
 			world->op = world->rot.rra;
 		if (world->rot.rrb > world->rot.rra)
 			world->op = world->rot.rrb;
-		if (world->rot.rb)
-			world->op += world->rot.rb;
 	}
+	if (world->rot.rb)
+		world->op += world->rot.rb;
 }
 
 static void	count_max(t_world *world, int pos)
@@ -49,6 +50,7 @@ static void	count_max(t_world *world, int pos)
 	}
 	get_rot_op(world);
 	world->op += 1;
+	ft_printf("world_op for max %d\n", world->op);
 }
 
 static void	count_min(t_world *world, int pos)
@@ -57,15 +59,18 @@ static void	count_min(t_world *world, int pos)
 		world->rot.ra = pos - 1;
 	else
 		world->rot.rra = (world->a_len - pos) + 1;
-	if (world->pos_b.min != 1)
+	if (world->pos_b.max != 1)
 	{
-		if (world->pos_b.min <= world->b_len / 2)
-			world->rot.rb = world->pos_b.min - 1;
+		if (world->pos_b.max <= world->b_len / 2)
+			world->rot.rb = world->pos_b.max - 1;
 		else
-			world->rot.rrb = (world->b_len - world->pos_b.min) + 1;
+			world->rot.rrb = (world->b_len - world->pos_b.max) + 1;
 	}
+	if (world->pos_b.max == 1)
+		world->rot.rb = 1;
 	get_rot_op(world);
 	world->op += 1;
+	ft_printf("world_op for min %d\n", world->op);
 }
 
 static void	count_mid(t_world *world, int pos, int nbr)
@@ -80,7 +85,7 @@ static void	count_mid(t_world *world, int pos, int nbr)
 		node = node->next;
 		pos_b++;
 	}
-	if (pos <= world->a_len / 2)
+	if (pos > 1 && pos <= world->a_len / 2)
 		world->rot.ra = pos;
 	if (pos > world->a_len / 2)
 		world->rot.rra = (world->a_len - pos) + 1;
@@ -89,7 +94,9 @@ static void	count_mid(t_world *world, int pos, int nbr)
 	if (pos_b > world->b_len / 2)
 		world->rot.rrb = (world->b_len - pos_b) + 1;
 	get_rot_op(world);
+	ft_printf("world_op for mid before %d\n", world->op);
 	world->op += 1;
+	ft_printf("world_op for mid %d\n", world->op);
 }
 
 void	init_to_0(t_world *world)
@@ -123,7 +130,6 @@ void	find_cheap(t_world *world)
 			count_mid(world, pos, nbr);
 		if (world->min_op == -1 || world->op < world->min_op)
 		{
-			ft_printf("world_op %d, min_op %d\n", world->op, world->min_op);
 			world->min_op = world->op;
 			world->pos_min_op = pos;
 		}

@@ -81,7 +81,6 @@ static void	sort_max(t_world *world, int pos)
 		else
 			world->rot.rrb = (world->b_len - world->pos_b.max) + 1;
 	}
-	ft_printf("for max ra %d rra %d rb %d rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
 	do_rotate(world);
 	do_rev_rotate(world);
 	push_to_b(world);
@@ -95,17 +94,24 @@ static void	sort_min(t_world *world, int pos)
 		world->rot.ra = pos -1;
 	if (pos > 2 && pos > world->a_len/2)
 		world->rot.rra = (world->a_len - pos) + 1;
-	if (world->pos_b.min != 1)
+	if (world->pos_b.max != 1)
 	{
-		if (world->pos_b.min <= world->b_len / 2)
-			world->rot.rb = world->pos_b.min - 1;
+		if (world->pos_b.max <= world->b_len / 2)
+			world->rot.rb = world->pos_b.max - 1;
 		else
-			world->rot.rrb = (world->b_len - world->pos_b.min) + 1;
+			world->rot.rrb = (world->b_len - world->pos_b.max) + 1;
 	}
-	ft_printf("for max ra %d rra %d rb %d rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
-	do_rotate(world);
-	do_rev_rotate(world);
-	push_to_b(world);
+	if (world->pos_b.max == 1)
+	{
+		push_to_b(world);
+		rotate_b(world);
+	}
+	else
+	{
+		do_rotate(world);
+		do_rev_rotate(world);
+		push_to_b(world);
+	}
 }
 
 static void	sort_mid(t_world *world, int pos)

@@ -72,7 +72,6 @@ static void	sort_big(t_world *world)
 		find_minmax(world);
 		find_cheap(world);
 		sort_to_b(world);
-		sort_b(world);
 		ft_printf("List A:\n");
 		print_list(world);
 		ft_printf("List B\n");
