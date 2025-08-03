@@ -19,7 +19,7 @@ void	rev_rotate_a(t_world *world)
 	if (!(*world->stack_a))
 		return ;
 	new_last = (*world->stack_a)->next;
-	while (new_last)
+	while (new_last && new_last->next)
 	{
 		if (!(*new_last->next).next)
 			break ;
@@ -38,7 +38,7 @@ void	rev_rotate_b(t_world *world)
 	if (!(*world->stack_b))
 		return ;
 	new_last = (*world->stack_b)->next;
-	while (new_last)
+	while (new_last && new_last->next)
 	{
 		if (!(*new_last->next).next)
 			break ;

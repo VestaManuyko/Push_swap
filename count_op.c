@@ -14,7 +14,6 @@
 
 static void	get_rot_op(t_world *world)
 {
-	ft_printf("ra %d rra %d rb %d rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
 	if (world->rot.ra)
 	{
 		if (world->rot.ra >= world->rot.rb)
@@ -50,7 +49,6 @@ static void	count_max(t_world *world, int pos)
 	}
 	get_rot_op(world);
 	world->op += 1;
-	ft_printf("world_op for max %d\n", world->op);
 }
 
 static void	count_min(t_world *world, int pos)
@@ -70,21 +68,37 @@ static void	count_min(t_world *world, int pos)
 		world->rot.rb = 1;
 	get_rot_op(world);
 	world->op += 1;
-	ft_printf("world_op for min %d\n", world->op);
+}
+
+int	get_pos_b(t_world *world, int nbr)
+{
+	t_list	*node;
+	int		pos_b;
+	int		b_nbr;
+
+	b_nbr = 0;
+	pos_b = 1;
+	node = *world->stack_b;
+	while (node)
+	{
+		if (*(int *)node->content < nbr && *(int *)node->content > b_nbr)
+			b_nbr = *(int *)node->content;
+		node = node->next;
+	}
+	node = *world->stack_b;
+	while (node && *(int *)node->content != b_nbr)
+	{
+		pos_b++;
+		node = node->next;
+	}
+	return(pos_b);
 }
 
 static void	count_mid(t_world *world, int pos, int nbr)
 {
-	t_list	*node;
 	int		pos_b;
 
-	pos_b = 1;
-	node = *world->stack_b;
-	while (node && nbr < *(int *)node->content)
-	{
-		node = node->next;
-		pos_b++;
-	}
+	pos_b = get_pos_b(world, nbr);
 	if (pos > 1 && pos <= world->a_len / 2)
 		world->rot.ra = pos;
 	if (pos > world->a_len / 2)
@@ -94,9 +108,7 @@ static void	count_mid(t_world *world, int pos, int nbr)
 	if (pos_b > world->b_len / 2)
 		world->rot.rrb = (world->b_len - pos_b) + 1;
 	get_rot_op(world);
-	ft_printf("world_op for mid before %d\n", world->op);
 	world->op += 1;
-	ft_printf("world_op for mid %d\n", world->op);
 }
 
 void	init_to_0(t_world *world)
@@ -133,7 +145,6 @@ void	find_cheap(t_world *world)
 			world->min_op = world->op;
 			world->pos_min_op = pos;
 		}
-		ft_printf("Candidate at pos %d: op = %d\n", pos, world->op);
 		node = node->next;
 		pos++;
 	}
