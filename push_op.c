@@ -19,8 +19,7 @@ void	push_to_b(t_world *world)
 	if (!(*world->stack_a))
 		return ;
 	temp = *world->stack_a;
-	*world->stack_a = (*world->stack_a)->next;
-	temp->next = NULL;
+	*world->stack_a = temp->next;
 	ft_lstadd_front(world->stack_b, temp);
 	ft_printf("pb\n");
 }
@@ -32,8 +31,7 @@ void	push_to_a(t_world *world)
 	if (!(*world->stack_b))
 		return ;
 	temp = *world->stack_b;
-	*world->stack_b = (*world->stack_b)->next;
-	temp->next = NULL;
+	*world->stack_b = temp->next;
 	ft_lstadd_front(world->stack_a, temp);
 	ft_printf("pa\n");
 }

@@ -14,38 +14,42 @@
 
 void	rev_rotate_a(t_world *world)
 {
-	t_list	*new_last;
+	t_list	*last;
+	t_list	*second_tolast;
 
-	if (!(*world->stack_a))
+	second_tolast = NULL;
+	last = *world->stack_a;
+	if (!last || !last->next)
 		return ;
-	new_last = (*world->stack_a)->next;
-	while (new_last && new_last->next)
+	while (last->next)
 	{
-		if (!(*new_last->next).next)
-			break ;
-		new_last = new_last->next;
+		second_tolast = last;
+		last = last->next;
 	}
-	ft_lstadd_front(world->stack_a, ft_lstlast((*world->stack_a)));
-	new_last->next = NULL;
+	second_tolast->next = NULL;
+	last->next = *world->stack_a;
+	*world->stack_a = last;
 	if (!world->do_all)
 		ft_printf("rra\n");
 }
 
 void	rev_rotate_b(t_world *world)
 {
-	t_list	*new_last;
+	t_list	*last;
+	t_list	*second_tolast;
 
-	if (!(*world->stack_b))
+	second_tolast = NULL;
+	last = *world->stack_b;
+	if (!last || !last->next)
 		return ;
-	new_last = (*world->stack_b)->next;
-	while (new_last && new_last->next)
+	while (last->next)
 	{
-		if (!(*new_last->next).next)
-			break ;
-		new_last = new_last->next;
+		second_tolast = last;
+		last = last->next;
 	}
-	ft_lstadd_front(world->stack_b, ft_lstlast((*world->stack_b)));
-	new_last->next = NULL;
+	second_tolast->next = NULL;
+	last->next = *world->stack_b;
+	*world->stack_b = last;
 	if (!world->do_all)
 		ft_printf("rrb\n");
 }

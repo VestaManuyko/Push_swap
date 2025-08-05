@@ -15,13 +15,15 @@
 void	rotate_a(t_world *world)
 {
 	t_list	*temp;
+	t_list	*new_head;
 
-	if (!(*world->stack_a))
+	if (!*world->stack_a || !(*world->stack_a)->next)
 		return ;
 	temp = *world->stack_a;
-	(*world->stack_a) = (*world->stack_a)->next;
-	ft_lstadd_back(world->stack_a, temp);
+	new_head = temp->next;
 	temp->next = NULL;
+	*world->stack_a = new_head;
+	ft_lstadd_back(world->stack_a, temp);
 	if (!world->do_all)
 		ft_printf("ra\n");
 }
@@ -29,13 +31,15 @@ void	rotate_a(t_world *world)
 void	rotate_b(t_world *world)
 {
 	t_list	*temp;
+	t_list	*new_head;
 
-	if (!(*world->stack_b))
+	if (!(*world->stack_b) || !(*world->stack_b)->next)
 		return ;
 	temp = *world->stack_b;
-	(*world->stack_b) = (*world->stack_b)->next;
-	ft_lstadd_back(world->stack_b, temp);
+	new_head = temp->next;
 	temp->next = NULL;
+	*world->stack_b = new_head;
+	ft_lstadd_back(world->stack_b, temp);
 	if (!world->do_all)
 		ft_printf("rb\n");
 }

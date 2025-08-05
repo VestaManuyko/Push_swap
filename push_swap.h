@@ -85,7 +85,7 @@ void	min_4(t_world *world);
 void	sort_to_b(t_world *world);
 int		get_pos_b(t_world *world, int nbr);
 //rotate.c
-void	do_rotate(t_world *world);
+void	do_rotate_all(t_world *world);
 //main.c
 int		sorted(t_world *world);
 void	print_list(t_world *world);

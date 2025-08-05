@@ -72,10 +72,10 @@ static void	sort_big(t_world *world)
 		find_minmax(world);
 		find_cheap(world);
 		sort_to_b(world);
-		// ft_printf("List A:\n");
-		// print_list(world);
-		// ft_printf("list B:\n");
-		// printf_list_2(world);
+		ft_printf("List A:\n");
+		print_list(world);
+		ft_printf("list B:\n");
+		printf_list_2(world);
 	}
 	init_to_0(world);
 	find_minmax(world);
@@ -86,7 +86,7 @@ static void	sort_big(t_world *world)
 			world->rot.rb = world->pos_b.max - 1;
 		if (world->pos_b.max > world->b_len / 2)
 			world->rot.rrb = (world->b_len - world->pos_b.max) + 1;
-		do_rotate(world);
+		do_rotate_all(world);
 	}
 	while (!empty_stack(world, 'B'))
 		push_to_a(world);
