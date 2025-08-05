@@ -87,7 +87,6 @@ static void	world_init(t_world *world)
 	world->rot.rrb = 0;
 	world->b_len = 0;
 	world->a_len = 0;
-	world->do_all = 0;
 	create_stacks(world);
 }
 
@@ -129,6 +128,6 @@ int	main(int argc, char **argv)
 	if (sorted(&world))
 		return (0);
 	sort_list(&world);
-	print_list(&world);
+	//print_list(&world);
 	clean_up(&world, EXIT_SUCCESS);
 }

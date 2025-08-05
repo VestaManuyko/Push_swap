@@ -55,7 +55,7 @@ static void	count_max(t_world *world, int pos)
 	}
 	get_rot_op(world);
 	world->op += 1;
-	ft_printf("Counting max with ra %d, rra %d, rb %d, rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
+	//ft_printf("Counting max with ra %d, rra %d, rb %d, rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
 }
 
 static void	count_min(t_world *world, int pos)
@@ -75,7 +75,7 @@ static void	count_min(t_world *world, int pos)
 		world->rot.rb = 1;
 	get_rot_op(world);
 	world->op += 1;
-	ft_printf("Counting min with ra %d, rra %d, rb %d, rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
+	//ft_printf("Counting min with ra %d, rra %d, rb %d, rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
 }
 
 int	get_pos_b(t_world *world, int nbr)
@@ -117,7 +117,7 @@ static void	count_mid(t_world *world, int pos, int nbr)
 		world->rot.rrb = (world->b_len - pos_b) + 1;
 	get_rot_op(world);
 	world->op += 1;
-	ft_printf("Counting mid with ra %d, rra %d, rb %d, rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
+	//ft_printf("Counting mid with ra %d, rra %d, rb %d, rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
 }
 
 void	init_to_0(t_world *world)
@@ -154,7 +154,7 @@ void	find_cheap(t_world *world)
 			world->min_op = world->op;
 			world->pos_min_op = pos;
 		}
-		ft_printf("Content %d at pos %d, needed op %d, cur_min_op %d\n", *(int *)node->content, pos, world->op, world->min_op);
+		//ft_printf("Content %d at pos %d, needed op %d, cur_min_op %d\n", *(int *)node->content, pos, world->op, world->min_op);
 		node = node->next;
 		pos++;
 	}

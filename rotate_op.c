@@ -24,8 +24,7 @@ void	rotate_a(t_world *world)
 	temp->next = NULL;
 	*world->stack_a = new_head;
 	ft_lstadd_back(world->stack_a, temp);
-	if (!world->do_all)
-		ft_printf("ra\n");
+	ft_printf("ra\n");
 }
 
 void	rotate_b(t_world *world)
@@ -40,14 +39,28 @@ void	rotate_b(t_world *world)
 	temp->next = NULL;
 	*world->stack_b = new_head;
 	ft_lstadd_back(world->stack_b, temp);
-	if (!world->do_all)
-		ft_printf("rb\n");
+	ft_printf("rb\n");
 }
 
 void	rotate_all(t_world *world)
 {
-	world->do_all = 1;
-	rotate_a(world);
-	rotate_b(world);
+	t_list	*temp;
+	t_list	*new_head;
+	t_list	*temp2;
+	t_list	*new_head2;
+
+	if (!(*world->stack_b) || !(*world->stack_b)->next
+		|| !*world->stack_a || !(*world->stack_a)->next)
+		return ;
+	temp = *world->stack_b;
+	new_head = temp->next;
+	temp->next = NULL;
+	*world->stack_b = new_head;
+	ft_lstadd_back(world->stack_b, temp);
+	temp2 = *world->stack_a;
+	new_head2 = temp2->next;
+	temp2->next = NULL;
+	*world->stack_a = new_head2;
+	ft_lstadd_back(world->stack_a, temp2);
 	ft_printf("rr\n");
 }

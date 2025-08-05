@@ -21,8 +21,11 @@ static void	do_rev_rotate(t_world *world)
 		return ;
 	if (world->rot.rra >= world->rot.rrb)
 	{
-		while (world->rot.rrb && i++ < world->rot.rrb)
+		while (world->rot.rrb && i < world->rot.rrb)
+		{
 			rev_rotate_all(world);
+			i++;
+		}
 		while (i++ < world->rot.rra)
 			rev_rotate_a(world);
 	}
@@ -48,8 +51,11 @@ static void	do_rotate(t_world *world)
 		return ;
 	if (world->rot.ra >= world->rot.rb)
 	{
-		while (world->rot.rb && i++ < world->rot.rb)
+		while (world->rot.rb && i < world->rot.rb)
+		{
 			rotate_all(world);
+			i++;
+		}
 		while (i++ < world->rot.ra)
 			rotate_a(world);
 	}
@@ -64,7 +70,6 @@ static void	do_rotate(t_world *world)
 		while (i++ < world->rot.rb)
 			rotate_b(world);
 	}
-	do_rev_rotate(world);
 }
 
 void	do_rotate_all(t_world *world)
