@@ -12,33 +12,32 @@
 
 #include "push_swap.h"
 
-void	print_list(t_world *world)
-{
-	t_list	*node;
+// void	print_list(t_world *world)
+// {
+// 	t_list	*node;
 
-	if (!world->stack_a || !*world->stack_a)
-		return ;
-	node = *world->stack_a;
-	while (node)
-	{
-		ft_printf("%d\n", *(int *)node->content);
-		node = node->next;
-	}
-}
-void	printf_list_2(t_world *world)
-{
-	t_list	*node;
+// 	if (!world->stack_a || !*world->stack_a)
+// 		return ;
+// 	node = *world->stack_a;
+// 	while (node)
+// 	{
+// 		ft_printf("%d\n", *(int *)node->content);
+// 		node = node->next;
+// 	}
+// }
+// void	printf_list_2(t_world *world)
+// {
+// 	t_list	*node;
 
-	if (!world->stack_b || !*world->stack_b)
-		return ;
-	node = *world->stack_b;
-	while (node)
-	{
-		ft_printf("%d\n", *(int *)node->content);
-		node = node->next;
-	}
-}
-
+// 	if (!world->stack_b || !*world->stack_b)
+// 		return ;
+// 	node = *world->stack_b;
+// 	while (node)
+// 	{
+// 		ft_printf("%d\n", *(int *)node->content);
+// 		node = node->next;
+// 	}
+// }
 static void	check_dup(t_list *list, t_world *world)
 {
 	int		content;

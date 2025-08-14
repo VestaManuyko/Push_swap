@@ -14,9 +14,9 @@
 
 static void	sort_max(t_world *world, int pos)
 {
-	if (pos > 1 && pos <= world->a_len/2)
+	if (pos > 1 && pos <= world->a_len / 2)
 		world->rot.ra = pos -1;
-	if (pos > 1 && pos > world->a_len/2)
+	if (pos > 1 && pos > world->a_len / 2)
 		world->rot.rra = (world->a_len - pos) + 1;
 	if (world->pos_b.max != 1)
 	{
@@ -31,9 +31,9 @@ static void	sort_max(t_world *world, int pos)
 
 static void	sort_min(t_world *world, int pos)
 {
-	if (pos > 1 && pos <= world->a_len/2)
+	if (pos > 1 && pos <= world->a_len / 2)
 		world->rot.ra = pos -1;
-	if (pos > 1 && pos > world->a_len/2)
+	if (pos > 1 && pos > world->a_len / 2)
 		world->rot.rra = (world->a_len - pos) + 1;
 	if (world->pos_b.max != 1)
 	{
@@ -73,6 +73,19 @@ static void	sort_mid(t_world *world, int pos)
 	push_to_b(world);
 }
 
+static int	set_minmax(t_world *world, int content)
+{
+	int	minmax;
+
+	if (content > world->b.max)
+		minmax = MAX;
+	if (content < world->b.min)
+		minmax = MIN;
+	if (content < world->b.max && content > world->b.min)
+		minmax = 0;
+	return (minmax);
+}
+
 void	sort_to_b(t_world *world)
 {
 	int		pos;
@@ -85,12 +98,7 @@ void	sort_to_b(t_world *world)
 	while (node && pos < world->pos_min_op)
 	{
 		init_to_0(world);
-		if (*(int *)node->content > world->b.max)
-			minmax = MAX;
-		if (*(int *)node->content < world->b.min)
-			minmax = MIN;
-		if (*(int *)node->content < world->b.max && *(int *)node->content > world->b.min)
-			minmax = 0;
+		minmax = set_minmax(world, *(int *)node->content);
 		node = node->next;
 		pos++;
 	}

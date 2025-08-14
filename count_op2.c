@@ -61,5 +61,5 @@ int	get_pos_b(t_world *world, int nbr)
 	next = *(int *)(*world->stack_b)->content;
 	if (nbr < *(int *)node->content && nbr > next)
 		return (pos_b + 1);
-	return(pos_b);
+	return (pos_b);
 }

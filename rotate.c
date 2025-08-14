@@ -17,8 +17,6 @@ static void	do_rev_rotate(t_world *world)
 	int	i;
 
 	i = 0;
-	if (!world->rot.rra && !world->rot.rrb)
-		return ;
 	if (world->rot.rra >= world->rot.rrb)
 	{
 		while (world->rot.rrb && i < world->rot.rrb)
@@ -47,8 +45,6 @@ static void	do_rotate(t_world *world)
 	int	i;
 
 	i = 0;
-	if (!world->rot.ra && !world->rot.rb)
-		return ;
 	if (world->rot.ra >= world->rot.rb)
 	{
 		while (world->rot.rb && i < world->rot.rb)

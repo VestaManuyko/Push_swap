@@ -90,9 +90,10 @@ void	find_cheap(t_world *world)
 		nbr = get_nbr(world, pos);
 		if (*(int *)node->content > world->b.max)
 			count_max(world, pos);
-		if (*(int *)node->content < world->b.min)	
+		if (*(int *)node->content < world->b.min)
 			count_min(world, pos);
-		if (*(int *)node->content < world->b.max && *(int *)node->content > world->b.min)
+		if (*(int *)node->content < world->b.max
+			&& *(int *)node->content > world->b.min)
 			count_mid(world, pos, nbr);
 		if (world->min_op == -1 || world->op < world->min_op)
 		{
