@@ -128,6 +128,5 @@ int	main(int argc, char **argv)
 	if (sorted(&world))
 		return (0);
 	sort_list(&world);
-	//print_list(&world);
 	clean_up(&world, EXIT_SUCCESS);
 }

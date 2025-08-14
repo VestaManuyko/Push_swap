@@ -12,34 +12,6 @@
 
 #include "push_swap.h"
 
-static void	get_rot_op(t_world *world)
-{
-	int	forward;
-	int	reverse;
-
-	forward = 0;
-	reverse = 0;
-	if (world->rot.ra > 0 && world->rot.rb > 0)
-	{
-		if (world->rot.ra > world->rot.rb)
-			forward = world->rot.ra;
-		else
-			forward = world->rot.rb;
-	}
-	else
-		forward = world->rot.ra + world->rot.rb;
-	if (world->rot.rra > 0 && world->rot.rrb > 0)
-	{
-		if (world->rot.rra > world->rot.rrb)
-			reverse = world->rot.rra;
-		else
-			reverse = world->rot.rrb;
-	}
-	else
-		reverse = world->rot.rra + world->rot.rrb;
-	world->op = forward + reverse;
-}
-
 static void	count_max(t_world *world, int pos)
 {
 	if (pos > 1 && pos <= world->a_len / 2)
@@ -55,7 +27,6 @@ static void	count_max(t_world *world, int pos)
 	}
 	get_rot_op(world);
 	world->op += 1;
-	//ft_printf("Counting max with ra %d, rra %d, rb %d, rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
 }
 
 static void	count_min(t_world *world, int pos)
@@ -75,31 +46,6 @@ static void	count_min(t_world *world, int pos)
 		world->rot.rb = 1;
 	get_rot_op(world);
 	world->op += 1;
-	//ft_printf("Counting min with ra %d, rra %d, rb %d, rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
-}
-
-int	get_pos_b(t_world *world, int nbr)
-{
-	t_list	*node;
-	int		pos_b;
-	int		b_nbr;
-
-	b_nbr = 0;
-	pos_b = 1;
-	node = *world->stack_b;
-	while (node)
-	{
-		if (*(int *)node->content < nbr && *(int *)node->content > b_nbr)
-			b_nbr = *(int *)node->content;
-		node = node->next;
-	}
-	node = *world->stack_b;
-	while (node && *(int *)node->content != b_nbr)
-	{
-		pos_b++;
-		node = node->next;
-	}
-	return(pos_b);
 }
 
 static void	count_mid(t_world *world, int pos, int nbr)
@@ -117,7 +63,6 @@ static void	count_mid(t_world *world, int pos, int nbr)
 		world->rot.rrb = (world->b_len - pos_b) + 1;
 	get_rot_op(world);
 	world->op += 1;
-	//ft_printf("Counting mid with ra %d, rra %d, rb %d, rrb %d\n", world->rot.ra, world->rot.rra, world->rot.rb, world->rot.rrb);
 }
 
 void	init_to_0(t_world *world)
@@ -154,7 +99,6 @@ void	find_cheap(t_world *world)
 			world->min_op = world->op;
 			world->pos_min_op = pos;
 		}
-		//ft_printf("Content %d at pos %d, needed op %d, cur_min_op %d\n", *(int *)node->content, pos, world->op, world->min_op);
 		node = node->next;
 		pos++;
 	}

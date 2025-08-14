@@ -94,5 +94,8 @@ void	find_minmax(t_world *world);
 //count_op.c
 void	find_cheap(t_world *world);
 void	init_to_0(t_world *world);
+//count_op2.c
+void	get_rot_op(t_world *world);
+int		get_pos_b(t_world *world, int nbr);
 
 #endif
