@@ -104,9 +104,11 @@ void	sort_list(t_world *world)
 	if (world->a_len == 4)
 	{
 		min_4(world);
-		sort_3(world);
-		push_to_a(world);
+		if (!sorted(world))
+			sort_3(world);
+		if (!empty_stack(world, 'B'))
+			push_to_a(world);
 	}
-	else
+	if (world->a_len > 4)
 		sort_big(world);
 }
