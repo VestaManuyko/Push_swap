@@ -79,14 +79,18 @@ void	int_lst_create(t_world *world, char *argv);
 void	str_lst_create(t_world *world, char *argv);
 //sort.c
 void	sort_list(t_world *world);
+int		empty_stack(t_world *world, char stack);
+void	sort_3(t_world *world);
 //sort2.c
 void	min_4(t_world *world);
 void	sort_to_b(t_world *world);
 int		get_pos_b(t_world *world, int nbr);
+//sort3.c
+void	sort_5(t_world *world);
 //rotate.c
 void	do_rotate_all(t_world *world);
 //main.c
-int		sorted(t_world *world);
+int		sorted(t_world *world, char stack);
 void	print_list(t_world *world);
 void	printf_list_2(t_world *world);
 //max_min.c

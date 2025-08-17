@@ -12,14 +12,14 @@
 
 #include "push_swap.h"
 
-static void	sort_3(t_world *world)
+void	sort_3(t_world *world)
 {
 	t_list	*node;
 
 	node = *world->stack_a;
 	if (!node->next)
 		return ;
-	if (!node->next->next && !sorted(world))
+	if (!node->next->next && !sorted(world, 'A'))
 		return (rotate_a(world));
 	if (*(int *)node->content < *(int *)node->next->content
 		&& *(int *)node->content < *(int *)node->next->next->content)
@@ -40,7 +40,7 @@ static void	sort_3(t_world *world)
 		rev_rotate_a(world);
 }
 
-static int	empty_stack(t_world *world, char stack)
+int	empty_stack(t_world *world, char stack)
 {
 	t_list	*node;
 
@@ -104,11 +104,13 @@ void	sort_list(t_world *world)
 	if (world->a_len == 4)
 	{
 		min_4(world);
-		if (!sorted(world))
+		if (!sorted(world, 'A'))
 			sort_3(world);
 		if (!empty_stack(world, 'B'))
 			push_to_a(world);
 	}
-	if (world->a_len > 4)
+	if (world->a_len == 5)
+		sort_5(world);
+	if (world->a_len > 5)
 		sort_big(world);
 }

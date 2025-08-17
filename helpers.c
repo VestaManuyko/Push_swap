@@ -44,7 +44,7 @@ void	valid_nbr(char *number, t_world *world)
 	while (number[i])
 	{
 		if (!ft_isdigit(number[i]) && number[i] != '-')
-			error_message("Number contains not only digits", world);
+			error_message("Incorrect input\n", world);
 		i++;
 	}
 }

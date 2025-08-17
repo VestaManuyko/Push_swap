@@ -49,7 +49,7 @@ void	str_lst_create(t_world *world, char *argv)
 		free_split(world);
 	world->split = ft_split(argv, ' ');
 	if (!world->split)
-		error_message("Malloc failed on split", world);
+		error_message("Malloc failed on split\n", world);
 	while (world->split[i])
 	{
 		valid_nbr(world->split[i], world);
@@ -59,7 +59,8 @@ void	str_lst_create(t_world *world, char *argv)
 		*nbr = ft_atoi_new(world->split[i]);
 		node = ft_lstnew(nbr);
 		if (!node)
-			error_message("Malloc failed on node creation", world);
+			return (free(nbr),
+				error_message("Malloc failed on node creation\n", world));
 		ft_lstadd_back(world->stack_a, node);
 		i++;
 	}

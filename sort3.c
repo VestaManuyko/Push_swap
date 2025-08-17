@@ -18,12 +18,17 @@ static void	min_4_2(t_world *world, int pos_min)
 		rotate_a(world);
 	if (pos_min == 3)
 	{
+		rotate_a(world);
+		rotate_a(world);
+	}
+	if (pos_min == 4 && world->a_len == 4)
+		rev_rotate_a(world);
+	if (pos_min == 4 && world->a_len == 5)
+	{
 		rev_rotate_a(world);
 		rev_rotate_a(world);
 	}
-	if (pos_min == 4)
-		rev_rotate_a(world);
-	if (!sorted(world))
+	if (!sorted(world, 'A'))
 		push_to_b(world);
 }
 
@@ -52,4 +57,19 @@ void	min_4(t_world *world)
 		pos++;
 	}
 	min_4_2(world, pos_min);
+}
+
+void	sort_5(t_world *world)
+{
+	min_4(world);
+	min_4(world);
+	if (!sorted(world, 'A'))
+		sort_3(world);
+	if (!empty_stack(world, 'B'))
+	{
+		if (sorted(world, 'B'))
+			rotate_b(world);
+	}
+	while (!empty_stack(world, 'B'))
+		push_to_a(world);
 }
