@@ -62,6 +62,7 @@ void	min_4(t_world *world)
 void	sort_5(t_world *world)
 {
 	min_4(world);
+	world->a_len = ft_lstsize(*world->stack_a);
 	min_4(world);
 	if (!sorted(world, 'A'))
 		sort_3(world);

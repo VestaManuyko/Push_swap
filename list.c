@@ -16,19 +16,18 @@ void	int_lst_create(t_world *world, char *argv)
 {
 	int		*nbr;
 	t_list	*node;
-	long	check;
 
 	valid_nbr(argv, world);
 	nbr = malloc(sizeof(int));
 	if (!nbr)
 		error_message("Malloc of nbr failed\n", world);
-	check = ft_atoi_new(argv);
-	if (check == ATOI_ERROR || check == ATOI_ERROR_2)
+	world->check = ft_atoi_new(argv);
+	if (world->check == ATOI_ERROR || world->check == ATOI_ERROR_2)
 	{
 		free(nbr);
 		error_message("Incorrect number\n", world);
 	}
-	*nbr = (int)check;
+	*nbr = (int)world->check;
 	node = ft_lstnew(nbr);
 	if (!node)
 	{
@@ -56,12 +55,13 @@ void	str_lst_create(t_world *world, char *argv)
 		nbr = malloc(sizeof(int));
 		if (!nbr)
 			error_message("Malloc of nbr failed\n", world);
-		*nbr = ft_atoi_new(world->split[i]);
+		world->check = ft_atoi_new(world->split[i++]);
+		if (world->check == ATOI_ERROR || world->check == ATOI_ERROR_2)
+			return (free(nbr), error_message("Incorrect number\n", world));
+		*nbr = (int)world->check;
 		node = ft_lstnew(nbr);
 		if (!node)
-			return (free(nbr),
-				error_message("Malloc failed on node creation\n", world));
+			return (free(nbr), error_message("Malloc node failed\n", world));
 		ft_lstadd_back(world->stack_a, node);
-		i++;
 	}
 }

@@ -49,6 +49,7 @@ typedef struct s_world
 	int		min_op;
 	int		pos_min_op;
 	t_rot	rot;
+	long	check;
 }	t_world;
 
 //free.c
