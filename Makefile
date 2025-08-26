@@ -13,7 +13,7 @@
 NAME = push_swap
 BNS_NAME = push_swap_bonus
 LIBFT = libft/libft.a
-CC = cc -Wall -Wextra -Werror -g
+CC = cc -Wall -Wextra -Werror
 #project program sources
 PSRC = main.c free.c helpers.c swap_op.c push_op.c rotate_op.c \
 rev_rotate_op.c list.c sort.c max_min.c count_op.c sort2.c sort3.c \
@@ -39,16 +39,9 @@ clean :
 	@echo "Cleaned."
 
 fclean : clean
-	@rm -f $(LIBFT) $(NAME)
+	@rm -f $(NAME)
 	@$(MAKE) -C libft --no-print-directory fclean
 
 re : fclean $(NAME)
-
-bonus : $(BNS_NAME)
-
-$(BNS_NAME) : $(LIBFT) $(BOBJ)
-	@$(CC) $(BOBJ) $(LIBFT) -o $(BNS_NAME)
-	@echo "Push_swap bonus compiled successfully."
-#if you decide on bonus add clean for bonus files aswell
 
 .PHONY : all clean fclean re bonus
