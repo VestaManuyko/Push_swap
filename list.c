@@ -12,6 +12,19 @@
 
 #include "push_swap.h"
 
+static void	valid_nbr(char *number, t_world *world)
+{
+	size_t	i;
+
+	i = 0;
+	while (number[i])
+	{
+		if (!ft_isdigit(number[i]) && number[i] != '-')
+			error_message("Incorrect input\n", world);
+		i++;
+	}
+}
+
 void	int_lst_create(t_world *world, char *argv)
 {
 	int		*nbr;
@@ -22,10 +35,10 @@ void	int_lst_create(t_world *world, char *argv)
 	if (!nbr)
 		error_message("Malloc of nbr failed\n", world);
 	world->check = ft_atoi_new(argv);
-	if (world->check == ATOI_ERROR || world->check == ATOI_ERROR_2)
+	if (world->check == ATOI_ERROR)
 	{
 		free(nbr);
-		error_message("Incorrect number\n", world);
+		error_message("Number not in int range\n", world);
 	}
 	*nbr = (int)world->check;
 	node = ft_lstnew(nbr);
@@ -56,8 +69,8 @@ void	str_lst_create(t_world *world, char *argv)
 		if (!nbr)
 			error_message("Malloc of nbr failed\n", world);
 		world->check = ft_atoi_new(world->split[i++]);
-		if (world->check == ATOI_ERROR || world->check == ATOI_ERROR_2)
-			return (free(nbr), error_message("Incorrect number\n", world));
+		if (world->check == ATOI_ERROR)
+			return (free(nbr), error_message("Nbr not in int range\n", world));
 		*nbr = (int)world->check;
 		node = ft_lstnew(nbr);
 		if (!node)

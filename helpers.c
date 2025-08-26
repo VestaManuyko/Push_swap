@@ -36,34 +36,43 @@ int	get_nbr(t_world *world, int pos)
 	return (nbr);
 }
 
-void	valid_nbr(char *number, t_world *world)
+static long	atoi_2(const char *nptr, size_t i, int sign)
 {
-	size_t	i;
+	long	number;
 
-	i = 0;
-	while (number[i])
-	{
-		if (!ft_isdigit(number[i]) && number[i] != '-')
-			error_message("Incorrect input\n", world);
-		i++;
-	}
-}
-
-static long	atoi_2(int sign, long number)
-{
+	number = 0;
+	if (!nptr[i])
+		return (ATOI_ERROR);
+	while (nptr[i] && ft_isdigit(nptr[i]))
+		number = number * 10 + (nptr[i++] - '0');
 	if ((sign == 1 && number > INT_MAX)
 		|| (sign == -1 && (-number) < INT_MIN))
-		return (ATOI_ERROR_2);
+		return (ATOI_ERROR);
+	return (sign * number);
+}
+
+static int	nbr_too_long(const char *nptr)
+{
+	int	i;
+
+	i = 0;
+	if (!nptr[i])
+		return (1);
+	while (nptr[i])
+		i++;
+	if (i > 11)
+		return (1);
 	return (0);
 }
 
 long	ft_atoi_new(const char *nptr)
 {
 	int		sign;
-	long	number;
 	size_t	i;
 
 	i = 0;
+	if (nbr_too_long(nptr))
+		return (ATOI_ERROR);
 	while (nptr[i])
 	{
 		while (nptr[i] && ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32))
@@ -77,11 +86,7 @@ long	ft_atoi_new(const char *nptr)
 		}
 		if (nptr[i] == '-' || nptr[i] == '+')
 			break ;
-		number = 0;
-		while (ft_isdigit(nptr[i]))
-			number = number * 10 + (nptr[i++] - '0');
-		if (!atoi_2(sign, number))
-			return (sign * (int)number);
+		return (atoi_2(nptr, i, sign));
 	}
 	return (ATOI_ERROR);
 }

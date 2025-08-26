@@ -18,7 +18,6 @@
 # include <limits.h>
 
 # define ATOI_ERROR 8888888888
-# define ATOI_ERROR_2 4444444444
 # define MAX 10000
 # define MIN 30000
 
@@ -56,7 +55,6 @@ typedef struct s_world
 void	free_split(t_world *world);
 void	clean_up(t_world *world, int status);
 //helpers.c
-void	valid_nbr(char *number, t_world *world);
 void	error_message(const char *s, t_world *world);
 long	ft_atoi_new(const char *nptr);
 int		get_nbr(t_world *world, int pos);
@@ -92,8 +90,8 @@ void	sort_5(t_world *world);
 void	do_rotate_all(t_world *world);
 //main.c
 int		sorted(t_world *world, char stack);
-void	print_list(t_world *world);
-void	printf_list_2(t_world *world);
+// void	print_list(t_world *world);
+// void	printf_list_2(t_world *world);
 //max_min.c
 void	find_minmax(t_world *world);
 //count_op.c

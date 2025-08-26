@@ -28,6 +28,8 @@ static void	min_4_2(t_world *world, int pos_min)
 		rev_rotate_a(world);
 		rev_rotate_a(world);
 	}
+	if (pos_min == 5)
+		rev_rotate_a(world);
 	if (!sorted(world, 'A'))
 		push_to_b(world);
 }
@@ -43,6 +45,7 @@ void	min_4(t_world *world)
 	i = 0;
 	pos = 1;
 	min = 0;
+	pos_min = 0;
 	node = *world->stack_a;
 	if (*(int *)node->content)
 		min = *(int *)node->content;
