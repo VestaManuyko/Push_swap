@@ -1,1 +1,2 @@
-Project in progress. Program that is taking in a list of unsorted numbers and sorts them in the most efficient way possible called "Push_swap".
+Program that is taking in a list of unsorted numbers and sorts them in an efficient way by using 2 stacks called "Push_swap".
+I used modified Turk algorithm, I push first 2 numbers of stack A to stack B, calculate min and max numbers in stack B, then calculate the cheapest number(the one that needs less operations to push itself to stack B from stack A by using rotations of both stacks) and push it to B, find new min and max in stack B, continue until stack A is empty and push everything back.
